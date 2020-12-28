@@ -1,0 +1,81 @@
+﻿@page
+@model Chitic_Valentina_Web_App.Pages.Plants.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Plant</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Plant.ID" />
+            <div class="form-group">
+                <label asp-for="Plant.Name" class="control-label"></label>
+                <input asp-for="Plant.Name" class="form-control" />
+                <span asp-validation-for="Plant.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Plant.Description" class="control-label"></label>
+                <input asp-for="Plant.Description" class="form-control" />
+                <span asp-validation-for="Plant.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Plant.Price" class="control-label"></label>
+                <input asp-for="Plant.Price" class="form-control" />
+                <span asp-validation-for="Plant.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="table">
+                    <table>
+                        <tr>
+                            @{
+                                int cnt = 0;
+                                foreach (var cat in Model.AssignedCategoryDataList)
+                                {
+                                    if (cnt++ % 3 == 0)
+                                    {
+                                    @:</tr><tr>
+                                    }
+                                    @:<td>
+                                        <input type="checkbox"
+                                               name="selectedCategories"
+                                               value="@cat.CategoryID"
+                                               @(Html.Raw(cat.Assigned ? "checked=\"checked\"" : "")) />
+                                        @cat.CategoryID @: @cat.Name
+                                    @:</td>
+                                }
+                            @:</tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Plant.WeatherID" class="control-label">Weather Type</label>
+                    <select asp-for="Plant.WeatherID" class="form-control" asp-items="ViewBag.WeatherID"></select>
+                    <span asp-validation-for="Plant.WeatherID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Plant.WateringID" class="control-label">Watering Period</label>
+                    <select asp-for="Plant.WateringID" class="form-control" asp-items="ViewBag.WateringID">
+                    </select>
+                    <span asp-validation-for="Plant.WateringID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
