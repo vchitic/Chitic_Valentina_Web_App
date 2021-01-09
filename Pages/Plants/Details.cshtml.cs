@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Chitic_Valentina_Web_App.Data;
 using Chitic_Valentina_Web_App.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Chitic_Valentina_Web_App.Pages.Plants
 {
@@ -19,6 +20,8 @@ namespace Chitic_Valentina_Web_App.Pages.Plants
             _context = context;
         }
 
+        [BindProperty]
+
         public Plant Plant { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -28,13 +31,23 @@ namespace Chitic_Valentina_Web_App.Pages.Plants
                 return NotFound();
             }
 
-            Plant = await _context.Plant.FirstOrDefaultAsync(m => m.ID == id);
+            Plant = await _context.Plant
+             .Include(b => b.Weather)
+             .Include(b => b.Watering)
+             .Include(b => b.PlantCategories).ThenInclude(b => b.Category)
+             .AsNoTracking()
+             .FirstOrDefaultAsync(m => m.ID == id);
+
+            //ViewData["CategoryID"] = new SelectList(_context.Category, "ID", "CategoryName");
+
 
             if (Plant == null)
             {
                 return NotFound();
             }
             return Page();
+
+            
         }
     }
 }

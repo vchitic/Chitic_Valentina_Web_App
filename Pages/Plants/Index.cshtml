@@ -31,7 +31,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Plant[0].Watering.WateringPer)
             </th>
-            <th></th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -67,8 +67,8 @@
                 @Html.DisplayFor(modelItem => item.Watering.WateringPer)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a>
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a>
                 <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
             </td>
         </tr>

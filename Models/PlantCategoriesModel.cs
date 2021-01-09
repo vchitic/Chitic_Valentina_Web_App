@@ -15,7 +15,7 @@ namespace Chitic_Valentina_Web_App.Models
         {
             var allCategories = context.Category;
             var plantCategories = new HashSet<int>(
-            plant.PlantCategories.Select(c => c.PlantID));
+            plant.PlantCategories.Select(c => c.CategoryID));
             AssignedCategoryDataList = new List<AssignedCategoryData>();
             foreach (var cat in allCategories)
             {

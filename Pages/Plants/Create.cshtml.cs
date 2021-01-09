@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Chitic_Valentina_Web_App.Data;
 using Chitic_Valentina_Web_App.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chitic_Valentina_Web_App.Pages.Plants
 {
@@ -51,7 +52,6 @@ namespace Chitic_Valentina_Web_App.Pages.Plants
                     newPlant.PlantCategories.Add(catToAdd);
                 }
             }
-
             if (await TryUpdateModelAsync<Plant>(newPlant, "Plant",
             i => i.Name, i => i.Description,
             i => i.Price, i => i.WeatherID, i => i.WateringID))
